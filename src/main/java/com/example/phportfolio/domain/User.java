@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +15,8 @@ public class User {
     private String firstName;
     private String lastName;
     private String description;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private LocalDate date;
 
     public User() {
     }
@@ -30,14 +33,15 @@ public class User {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return id.equals(user.id) &&
-                Objects.equals(firstName, user.firstName) &&
-                Objects.equals(lastName, user.lastName) &&
-                Objects.equals(description, user.description);
+                firstName.equals(user.firstName) &&
+                lastName.equals(user.lastName) &&
+                Objects.equals(description, user.description) &&
+                date.equals(user.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, description);
+        return Objects.hash(id, firstName, lastName, description, date);
     }
 
     public void setId(Long id) {
@@ -72,6 +76,14 @@ public class User {
         this.description = description;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -79,6 +91,7 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", description='" + description + '\'' +
+                ", date=" + date +
                 '}';
     }
 }

@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +15,8 @@ public class Image {
     private String path;
     private String title;
     private String description;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private LocalDate date;
 
     public Image() {
     }
@@ -32,12 +35,13 @@ public class Image {
         return id.equals(image.id) &&
                 path.equals(image.path) &&
                 Objects.equals(title, image.title) &&
-                Objects.equals(description, image.description);
+                Objects.equals(description, image.description) &&
+                date.equals(image.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, path, title, description);
+        return Objects.hash(id, path, title, description, date);
     }
 
     public void setId(Long id) {
@@ -72,6 +76,14 @@ public class Image {
         this.description = description;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
     @Override
     public String toString() {
         return "Image{" +
@@ -79,6 +91,7 @@ public class Image {
                 ", path='" + path + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
+                ", date=" + date +
                 '}';
     }
 }
