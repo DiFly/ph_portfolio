@@ -43,14 +43,14 @@ public class ImageLoaderController {
         }
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/files/download/")
+                .path("/img/")
                 .path(fileName)
                 .toUriString();
 
         return ResponseEntity.ok(fileDownloadUri);
     }
 
-    @GetMapping("/files/download/{fileName:.+}")
+    @GetMapping("/img/{fileName:.+}")
     public ResponseEntity downloadFileFromLocal(@PathVariable String fileName) {
         System.out.println(fileName);
 

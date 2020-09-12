@@ -1,5 +1,6 @@
 package com.example.phportfolio.component;
 
+import com.example.phportfolio.domain.Image;
 import com.example.phportfolio.repository.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,6 +35,7 @@ public class ImageToDBPreloaderComponent implements CommandLineRunner {
             System.err.println("Failed to create directory!" + e.getMessage());
         }
 
+        this.repository.save(new Image("g.png", "Google Image", "Simple image description"));
 
     }
 }
