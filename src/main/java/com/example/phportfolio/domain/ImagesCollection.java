@@ -12,6 +12,7 @@ public class ImagesCollection {
     private Long id;
     private String title;
     private String description;
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private LocalDate date;
 
     @OneToOne
