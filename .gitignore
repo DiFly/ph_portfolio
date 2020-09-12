@@ -58,3 +58,5 @@ build/
 /src/main/frontend/npm-debug.log*
 /src/main/frontend/yarn-debug.log*
 /src/main/frontend/yarn-error.log*
+
+img/

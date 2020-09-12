@@ -1,4 +1,4 @@
-package com.example.phportfolio.db;
+package com.example.phportfolio.component;
 
 import com.example.phportfolio.domain.User;
 import com.example.phportfolio.repository.UserRepository;
@@ -6,10 +6,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DatabaseLoader implements CommandLineRunner {
+public class UserToDBPreLoaderComponent implements CommandLineRunner {
     private final UserRepository repository;
 
-    public DatabaseLoader(UserRepository repository) {
+    public UserToDBPreLoaderComponent(UserRepository repository) {
         this.repository = repository;
     }
 
