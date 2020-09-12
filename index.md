@@ -1,19 +1,19 @@
-## Welcome to GitHub Pages
+## Welcome to our GitHub Page
 
-You can use the [editor on GitHub](https://github.com/DiFly/ph_portfolio/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+This is description page of project: photo portfolio site with using Java, Spring Boot, ReactJS.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Start application
 
-### Markdown
+For starting, execute command in project folder:
+```
+mvnw.cmd spring-boot:run
+```
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### Under deploy
 
 ```markdown
 Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
 
 - Bulleted
 - List
