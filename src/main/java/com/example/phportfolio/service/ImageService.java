@@ -3,6 +3,10 @@ package com.example.phportfolio.service;
 import com.example.phportfolio.domain.Image;
 import com.example.phportfolio.repository.ImageRepository;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,6 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -79,5 +84,23 @@ public class ImageService {
                 .toUriString();
 
         return fileDownloadUri;
+    }
+
+    public Resource getImageResource(String fileName) {
+        Path path = Paths.get(imgPath + File.separator + fileName);
+        if (new File(path.toUri()).exists()) {
+            System.out.println(path.toAbsolutePath().toString());
+        } else {
+            return null;
+        }
+
+        Resource resource = null;
+        try {
+            resource = new UrlResource(path.toUri());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        return resource;
     }
 }

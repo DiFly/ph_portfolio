@@ -38,22 +38,11 @@ public class ImageLoaderController {
     }
 
     @GetMapping("/img/{fileName:.+}")
-    public ResponseEntity downloadFileFromLocal(@PathVariable String fileName) {
-        System.out.println(fileName);
+    public ResponseEntity getImgFileFromLocal(@PathVariable String fileName) {
+        Resource resource = this.imgService.getImageResource(fileName);;
 
-        Path path = Paths.get(imgPath + File.separator + fileName);
-
-        if (new File(path.toUri()).exists()) {
-            System.out.println(path.toAbsolutePath().toString());
-        } else {
+        if (resource == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-
-        Resource resource = null;
-        try {
-            resource = new UrlResource(path.toUri());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         }
 
         //if we want to download
