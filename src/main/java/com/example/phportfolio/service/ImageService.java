@@ -5,20 +5,14 @@ import com.example.phportfolio.repository.ImageRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.*;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -59,6 +53,10 @@ public class ImageService {
         return this.repository.findById(id);
     }
 
+    public Optional<Image> findByPath(String path) {
+        return this.repository.findByPath(path);
+    }
+
     Iterable<Image> findAllByTitleContains(String title){
         return this.repository.findAllByTitleContains(title);
     };
@@ -69,7 +67,7 @@ public class ImageService {
 
     public String saveFromInputStream(MultipartFile file) {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        Path path = Paths.get(imgPath + File.separator + fileName);
+        Path path = Paths.get(imgPath + FileSystems.getDefault().getSeparator() + fileName);
 
         try {
             Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
@@ -87,12 +85,10 @@ public class ImageService {
     }
 
     public Resource getImageResource(String fileName) {
-        Path path = Paths.get(imgPath + File.separator + fileName);
-        if (new File(path.toUri()).exists()) {
-            System.out.println(path.toAbsolutePath().toString());
-        } else {
-            return null;
-        }
+        Optional<Image> findingImage = this.repository.findByPath(fileName);
+        Path path = Paths.get(imgPath + FileSystems.getDefault().getSeparator() + fileName);
+
+        if (!Files.exists(path) || findingImage.isEmpty()) return null;
 
         Resource resource = null;
         try {
