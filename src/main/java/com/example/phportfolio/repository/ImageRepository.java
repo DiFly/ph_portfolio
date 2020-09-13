@@ -5,4 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ImageRepository extends CrudRepository<Image, Long> {
     Iterable<Image> findAllByTitleContains(String title);
+    Iterable<Image> findAllByDescriptionContains(String description);
 }

@@ -1,9 +1,9 @@
 package com.example.phportfolio.controller;
 
+import com.example.phportfolio.service.ImageService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.function.ServerRequest;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.File;
@@ -31,6 +30,12 @@ public class ImageLoaderController {
     @Value("${value.imagepath}")
     private String imgPath;
 
+    private final ImageService imgService;
+
+    public ImageLoaderController(ImageService imgService) {
+        this.imgService = imgService;
+    }
+
     @PostMapping("/admin/upload")
     public ResponseEntity uploadToLocalFileSystem(@RequestParam("file") MultipartFile file) {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -38,6 +43,7 @@ public class ImageLoaderController {
 
         try {
             Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            this.imgService.saveFromParameter(fileName, null, null, null);
         } catch (IOException e) {
             e.printStackTrace();
         }
