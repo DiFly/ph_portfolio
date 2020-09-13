@@ -2,13 +2,25 @@ package com.example.phportfolio.service;
 
 import com.example.phportfolio.domain.Image;
 import com.example.phportfolio.repository.ImageRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
 public class ImageService {
+    @Value("${value.imagepath}")
+    private String imgPath;
 
     private ImageRepository repository;
 
@@ -48,5 +60,24 @@ public class ImageService {
 
     Iterable<Image> findAllByDescriptionContains(String description) {
         return this.repository.findAllByDescriptionContains(description);
+    }
+
+    public String saveFromInputStream(MultipartFile file) {
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        Path path = Paths.get(imgPath + File.separator + fileName);
+
+        try {
+            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            this.saveFromParameter(fileName, null, null, null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/img/")
+                .path(fileName)
+                .toUriString();
+
+        return fileDownloadUri;
     }
 }
