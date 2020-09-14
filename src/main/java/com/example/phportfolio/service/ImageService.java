@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -57,7 +58,7 @@ public class ImageService {
         return this.repository.findByPath(path);
     }
 
-    Iterable<Image> findAllByTitleContains(String title){
+    List<Image> findAllByTitleContains(String title){
         return this.repository.findAllByTitleContains(title);
     };
 
