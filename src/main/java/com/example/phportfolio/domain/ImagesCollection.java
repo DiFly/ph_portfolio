@@ -20,6 +20,7 @@ public class ImagesCollection {
     @OneToOne
     private Image titleImage;
 
+//    @OneToMany(fetch = FetchType.EAGER)
     @OneToMany
     private Set<Image> imageslist;
 
