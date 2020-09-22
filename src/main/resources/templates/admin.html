@@ -5,16 +5,27 @@
     <title>Title</title>
 </head>
 <body>
-    <h3>Hello from admin page</h3>
+<h3>Hello from admin page</h3>
 
-    <form method="post" enctype="multipart/form-data" action="/admin/upload">
-        <input type="file" name="file">
+<form method="post" enctype="multipart/form-data" action="/admin/upload" target="_blank">
+    <fieldset>
+        <legend>Image</legend>
+        <label for="imgFileInput">Select img file:</label><br>
+        <input id="imgFileInput" type="file" name="file"><br>
         <input type="submit">
-    </form>
+    </fieldset>
+</form>
 
-    <form method="post" action="/admin/album">
-        <input type="text" name="title">
+<form method="post" action="/admin/album" target="_blank">
+    <fieldset>
+        <legend>Album</legend>
+        <label for="albumTitleInput">Enter title name for new collection</label><br>
+        <input id="albumTitleInput" type="text" name="title"><br>
+        <label for="albumDescriptionInput">Enter description text for new collection</label><br>
+        <textarea  id="albumDescriptionInput" type="text" name="description" rows="2">
+        </textarea> <br>
         <input type="submit">
-    </form>
+    </fieldset>
+</form>
 </body>
 </html>
