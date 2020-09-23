@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Controller
@@ -22,9 +23,17 @@ public class AlbumCreatorController {
     @PostMapping("admin/album")
     public ResponseEntity createAlbum(
             @RequestParam(name = "title") String title,
-            @RequestParam(name = "description") String description
+            @RequestParam(name = "description") String description,
+            @RequestParam(name = "date") String date
             ) {
-        Optional<ImagesCollection> savedAlbum = this.albumService.save(title, description);
+        LocalDate localDate;
+        if (date == null | date.length() == 0) {
+            localDate = LocalDate.now();
+        } else {
+            localDate = LocalDate.parse(date);
+        }
+
+        Optional<ImagesCollection> savedAlbum = this.albumService.save(title, description, localDate);
         return ResponseEntity.ok(savedAlbum);
     }
 }
