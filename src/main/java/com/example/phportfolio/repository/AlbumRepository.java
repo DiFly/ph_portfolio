@@ -1,9 +1,9 @@
 package com.example.phportfolio.repository;
 
-import com.example.phportfolio.domain.ImagesCollection;
+import com.example.phportfolio.domain.Album;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ImagesCollectionRepository extends CrudRepository<ImagesCollection, Long> {
+public interface AlbumRepository extends CrudRepository<Album, Long> {
 }

@@ -1,9 +1,9 @@
 package com.example.phportfolio.component;
 
 import com.example.phportfolio.domain.Image;
-import com.example.phportfolio.domain.ImagesCollection;
+import com.example.phportfolio.domain.Album;
 import com.example.phportfolio.repository.ImageRepository;
-import com.example.phportfolio.repository.ImagesCollectionRepository;
+import com.example.phportfolio.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -21,13 +21,13 @@ import java.util.HashSet;
 @Transactional
 public class ImageToDBPreloaderComponent implements CommandLineRunner {
     private final ImageRepository repository;
-    private final ImagesCollectionRepository collectionRepository;
+    private final AlbumRepository collectionRepository;
 
     @Value("${value.imagepath}")
     private String imgPath;
 
     @Autowired
-    public ImageToDBPreloaderComponent(ImageRepository repository, ImagesCollectionRepository collectionRepository) {
+    public ImageToDBPreloaderComponent(ImageRepository repository, AlbumRepository collectionRepository) {
         this.repository = repository;
         this.collectionRepository = collectionRepository;
     }
@@ -47,23 +47,23 @@ public class ImageToDBPreloaderComponent implements CommandLineRunner {
         this.repository.save(new Image("g.png", "Google Image 1", "Simple image description 1"));
         this.repository.save(new Image("g.png", "Google Image 2", "Simple image description 2"));
 
-        ImagesCollection imgColl = this.collectionRepository.save(new ImagesCollection(
+        Album imgColl = this.collectionRepository.save(new Album(
                 "First Collection",
                 "Collection description",
                 LocalDate.now(),
                 null, null, null
         ));
 
-        Iterable<ImagesCollection> imagesCollectionsAll = this.collectionRepository.findAll();
+        Iterable<Album> imagesCollectionsAll = this.collectionRepository.findAll();
         if (imagesCollectionsAll.iterator().hasNext()) {
-            ImagesCollection next = imagesCollectionsAll.iterator().next();
+            Album next = imagesCollectionsAll.iterator().next();
             System.out.println(next);
 
             if (next.getImageslist() == null) next.setImageslist(new HashSet<Image>());
 //            next.getImageslist().add(new Image("g.png", "Google Image 3", "Simple image description 3"));
             next.getImageslist().add(image1);
-            ImagesCollection imagesCollection = this.collectionRepository.save(next);
-            System.out.println(imagesCollection);
+            Album album = this.collectionRepository.save(next);
+            System.out.println(album);
         }
     }
 }

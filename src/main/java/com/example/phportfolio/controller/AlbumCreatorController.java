@@ -1,6 +1,6 @@
 package com.example.phportfolio.controller;
 
-import com.example.phportfolio.domain.ImagesCollection;
+import com.example.phportfolio.domain.Album;
 import com.example.phportfolio.service.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +33,7 @@ public class AlbumCreatorController {
             localDate = LocalDate.parse(date);
         }
 
-        Optional<ImagesCollection> savedAlbum = this.albumService.save(title, description, localDate);
+        Optional<Album> savedAlbum = this.albumService.save(title, description, localDate);
         return ResponseEntity.ok(savedAlbum);
     }
 }

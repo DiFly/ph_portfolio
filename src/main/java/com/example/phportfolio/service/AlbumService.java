@@ -1,7 +1,7 @@
 package com.example.phportfolio.service;
 
-import com.example.phportfolio.domain.ImagesCollection;
-import com.example.phportfolio.repository.ImagesCollectionRepository;
+import com.example.phportfolio.domain.Album;
+import com.example.phportfolio.repository.AlbumRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -10,14 +10,14 @@ import java.util.Optional;
 
 @Service
 public class AlbumService {
-    private ImagesCollectionRepository albumRepository;
+    private AlbumRepository albumRepository;
 
-    public AlbumService(ImagesCollectionRepository albumRepository) {
+    public AlbumService(AlbumRepository albumRepository) {
         this.albumRepository = albumRepository;
     }
 
-    public Optional<ImagesCollection> save(String title, String description, LocalDate localDate) {
-        ImagesCollection album = new ImagesCollection();
+    public Optional<Album> save(String title, String description, LocalDate localDate) {
+        Album album = new Album();
 
         if (title != null) album.setTitle(title);
         if (description != null) album.setDescription(description);
@@ -28,7 +28,7 @@ public class AlbumService {
         }
         album.setImageslist(new HashSet<>());
 
-        ImagesCollection savedCollection = this.albumRepository.save(album);
+        Album savedCollection = this.albumRepository.save(album);
         return Optional.of(savedCollection);
     }
 

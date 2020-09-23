@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-public class ImagesCollection {
+public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -24,10 +24,10 @@ public class ImagesCollection {
     @OneToMany
     private Set<Image> imageslist;
 
-    public ImagesCollection() {
+    public Album() {
     }
 
-    public ImagesCollection(String title, String description, LocalDate date, Image preImage, Image titleImage, Set<Image> imageslist) {
+    public Album(String title, String description, LocalDate date, Image preImage, Image titleImage, Set<Image> imageslist) {
         this.title = title;
         this.description = description;
         this.date = date;
@@ -40,7 +40,7 @@ public class ImagesCollection {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ImagesCollection that = (ImagesCollection) o;
+        Album that = (Album) o;
         return id.equals(that.id) &&
                 title.equals(that.title) &&
                 Objects.equals(description, that.description) &&
@@ -110,7 +110,7 @@ public class ImagesCollection {
 
     @Override
     public String toString() {
-        return "ImagesCollection{" +
+        return "Album{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
