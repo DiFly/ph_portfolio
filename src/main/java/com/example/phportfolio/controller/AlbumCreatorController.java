@@ -20,8 +20,11 @@ public class AlbumCreatorController {
     }
 
     @PostMapping("admin/album")
-    public ResponseEntity createAlbum(@RequestParam(name = "title") String title ) {
-        Optional<ImagesCollection> savedAlbum = this.albumService.save(title);
+    public ResponseEntity createAlbum(
+            @RequestParam(name = "title") String title,
+            @RequestParam(name = "description") String description
+            ) {
+        Optional<ImagesCollection> savedAlbum = this.albumService.save(title, description);
         return ResponseEntity.ok(savedAlbum);
     }
 }

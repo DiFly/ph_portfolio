@@ -17,9 +17,15 @@ public class AlbumService {
         this.albumRepository = albumRepository;
     }
 
-    public Optional<ImagesCollection> save(String title) {
-        ImagesCollection imgCollection = new ImagesCollection(title, null, LocalDate.now(), null, null, new HashSet<Image>());
-        ImagesCollection savedCollection = this.albumRepository.save(imgCollection);
+    public Optional<ImagesCollection> save(String title, String description) {
+        ImagesCollection album = new ImagesCollection();
+
+        if (title != null) album.setTitle(title);
+        if (description != null) album.setDescription(description);
+        album.setDate(LocalDate.now());
+        album.setImageslist(new HashSet<>());
+
+        ImagesCollection savedCollection = this.albumRepository.save(album);
         return Optional.of(savedCollection);
     }
 
