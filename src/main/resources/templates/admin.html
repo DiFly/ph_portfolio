@@ -6,6 +6,7 @@
 </head>
 <body>
 <h3>Hello from admin page</h3>
+<p th:text="'!!! '+ ${simpleTitle} + ' !!!'"/>
 
 <form method="post" enctype="multipart/form-data" action="/admin/upload" target="_blank">
     <fieldset>
