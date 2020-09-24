@@ -2,11 +2,20 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Admin Page</title>
 </head>
 <body>
-<h3>Hello from admin page</h3>
-<p th:text="'!!! '+ ${simpleTitle} + ' !!!'"/>
+<header>
+    <h3>Hello from admin page</h3>
+    <p th:text="'!!! '+ ${simpleTitle} + ' !!!'"/>
+    <nav>
+        <ul>
+            <li><a href="/admin">Admin Page</a></li>
+            <li><a href="/admin/images">Image List Page</a></li>
+            <li><a href="/admin/albums">Album List Page</a></li>
+        </ul>
+    </nav>
+</header>
 
 <form method="post" enctype="multipart/form-data" action="/admin/upload" target="_blank">
     <fieldset>
